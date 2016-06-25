@@ -1,0 +1,17 @@
+﻿@model SainsTekWepApp.Entities.Pengumuman
+@{
+    ViewBag.Title = "Pengumuman";
+}
+
+<h3 class="cause-title" style="text-align:center">@Model.Title</h3>
+<h5>
+    @Model.DateCreated
+</h5>
+<hr />
+<div class="cause-details">
+    <p>
+        @Html.Raw(Model.Content)
+    </p>
+</div>
+
+

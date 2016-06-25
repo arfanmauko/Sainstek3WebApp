@@ -1,0 +1,181 @@
+﻿@model SainsTekWepApp.Areas.Admin.Models.DetailPublicMessageViewModel
+
+@{
+    ViewBag.Title = "PublicDetailsMessage";
+}
+
+@*<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Launch demo modal
+    </button>*@
+
+<div id="#loading-transparent" style="display:none;">
+    @*<img id="img-spinner" src="spinner.gif" alt="Loading"/>*@
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-envelope"></i> Reply public message</h4>
+
+            </div>
+            <div id="error-info" class="alert alert-danger" style="margin:20px">
+
+            </div>
+
+            <div class="modal-body">
+                @Html.Action("ReplyMessage", new { id = Model.Id })
+            </div>
+            <div class="modal-footer">
+                <button id="close-modal" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="submit-message" type="button" class="btn btn-primary">Send reply</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@Html.HiddenFor(model => model.Id)*@
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SenderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SenderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SenderEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SenderEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageContent)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.MessageContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlreadyReply)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlreadyReply)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAdminRead)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAdminRead)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReplyMessage)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.ReplyMessage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateReply)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateReply)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReplyAdminId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReplyAdminId)
+        </dd>
+
+    </dl>
+</div>
+
+@*<nav>
+        <ul class="pager">
+            <li class="previous"><a id="back" href="/Admin/PublicMessage"><span aria-hidden="true">&larr;</span> Back to Message</a></li>
+        </ul>
+    </nav>*@
+
+<!-- Button trigger modal -->
+
+
+<nav>
+    <ul class="pager">
+        <li class="next"><a id="reply-modal" href="/Admin/PublicMessage"><span aria-hidden="true">&harr;</span> Reply message</a></li>
+    </ul>
+</nav>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#reply-modal").click(function (e) {
+            e.preventDefault();
+            $('#error-info').hide();
+            $("#myModal").modal({
+                backdrop: 'static'
+            });
+        });
+
+        $('#submit-message').on('click', function () {
+            $("#loading-transparent").show();
+            $.ajax({
+                url: 'Admin/PublicMessage/ReplyMessage',
+                type: 'POST',
+                data: $('#form-message').serialize(),
+                success: function (result) {
+                    $("#myModal").modal('hide');
+                     $("#loading-transparent").hide();
+                    $.notify("Pesan telah terkirim.", { status: "success", pos: 'top-right' });
+                },
+                error: function (request, status, error) {
+                    //$.notify(request.statusText, { status: "error", timeout: 10000, pos: 'top-right' });
+                    //$('#error-info').show();
+                     $("#loading-transparent").hide();
+                    $('#error-info').fadeIn(1000);
+                    $('#error-info').html(request.statusText);
+                    $('#error-info').fadeOut(5000);
+                    //$('#error-info').slideUp(1000).delay(5000).hide(1000);
+
+                }
+            });
+
+           
+        });
+
+        //$("#loading-transparent").bind("ajaxSend", function () {
+        //    $(this).show();
+        //}).bind("ajaxStop", function () {
+        //    $(this).hide();
+        //}).bind("ajaxError", function () {
+        //    $(this).hide();
+        //});
+    });
+</script>
+
+@*@section scripts{
+
+    }*@

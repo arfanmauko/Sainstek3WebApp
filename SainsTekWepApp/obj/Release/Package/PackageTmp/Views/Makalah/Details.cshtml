@@ -1,0 +1,174 @@
+﻿@model SainsTekWepApp.Models.DetailMakalahViewModel
+
+@{
+    ViewBag.Title = "Info makalah";
+}
+
+<div>
+    @*<hr />
+        <h5><strong> Judul Makalah : </strong></h5>
+        <h4 class="text-center"><strong>@Model.Title</strong></h4>
+        <hr />*@
+    <br />
+    <fieldset>
+        <legend class="text-info">Judul Makalah</legend>
+        <h4 class="text-center"><strong>@Model.Title</strong></h4>
+        <br />
+    </fieldset>
+
+    <fieldset class="detail-makalah">
+        <legend class="text-info">Detil Makalah</legend>
+        <div class="row">
+            <div class="col-md-3">
+                <strong>@Html.DisplayNameFor(model => model.CategoryName)</strong>
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(model => model.CategoryName)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <strong> @Html.DisplayNameFor(model => model.Abstract)</strong>
+            </div>
+            <div class="col-md-9">
+                <div class="cause">
+                    @*<h4 class="cause-title"><a href="#">Abstrak </a></h4>
+                        <hr />*@
+                    <div class="cause-details">
+                        @Html.Raw(Model.Abstract)
+                    </div>
+                </div> <!-- /.cause -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <strong>File Upload</strong>
+            </div>
+            <div class="col-md-9">
+                <a href="/Makalah/DownloadAbstract?fileName=@Model.AbstractFileName" class="btn btn-success btn-md "><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Abstrak</a>
+                @if (Model.FullPaperFileName != null && Model.FullPaperFileName.Length > 0)
+                {
+                    <a href="/Makalah/DownloadFullPaper?fileName=@Model.FullPaperFileName" class="btn btn-success btn-md "><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Full paper</a>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <strong>Tanggal Submit</strong>
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(model => model.DateSubmitted)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <strong>Tanggal Submit Full Paper</strong>
+            </div>
+            <div class="col-md-9">
+                @if (Model.FullPaperDateSubmitted != null)
+                {
+                    @Html.DisplayFor(model => model.FullPaperDateSubmitted)
+                }
+                else
+                {
+                    <p>
+                        Full paper masih kosong.
+                    </p>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <strong>Update Terakhir</strong>
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(model => model.DateModified)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <strong>Keterangan</strong>
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(model => model.Description)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9 text-right">
+                <a href="/Makalah/Edit/@Model.Id" class="btn btn-warning"><i class="fa fa-pencil"></i> Ubah</a>
+                <a href="/Makalah/Delete/@Model.Id" class="btn btn-danger"><i class="fa fa-remove"></i> Hapus</a>
+            </div>
+        </div>
+        <br />
+    </fieldset>
+
+    <fieldset>
+        <legend class="text-info">Status Makalah</legend>
+        <div class="@ViewBag.AlertType">
+            <dl class="dl-horizontal">
+                <dt>
+                    Abstrak
+                </dt>
+                <dd>
+                    @Model.PaperAbstractConfirmMessage
+                </dd>
+
+                <dt>
+                    Full Paper
+                </dt>
+
+                <dd>
+                    @Model.FullPaperConfirmMessage
+                </dd>
+
+                <dt>
+                    Status Pembayaran
+                </dt>
+                <dd>
+                    @Model.PaperPaymentConfirmMessage
+                    <br />
+                </dd>
+            </dl>
+        </div>
+
+        @if (Model.PaperPaymentStatus == SainsTekWepApp.Enums.EPaperPaymentStatus.BelumBayar)
+        {
+            <div>
+                <p>
+                    <strong>Informasi pembayaran dapat dilihat disini. <a href="/Home/Pembayaran" class="btn btn-info btn-md"><i class="fa fa-credit-card"></i> Informasi pembayaran</a></strong>
+                </p>
+                <p>  <strong>Apabila anda telah melakukan pembayaran, maka silahkan melakukan konfirmasi pembayaran anda kepada kami.</strong></p>
+                <a href="@Url.Action("KonfirmasiPembayaranMakalah", new { id=Model.Id })" class="btn btn-primary btn-md pull-right">Konfirmasi pembayaran</a>
+            </div>
+        }
+        @if (Model.PaperPaymentStatus == SainsTekWepApp.Enums.EPaperPaymentStatus.Ditolak)
+        {
+            <div>
+                <p>
+                    <strong>Informasi pembayaran dapat dilihat disini. <a href="/Home/Pembayaran" class="btn btn-info btn-md"><i class="fa fa-credit-card"></i> Informasi pembayaran</a></strong>
+                </p>
+                <p>  <strong>Apabila anda telah melakukan pembayaran, maka silahkan melakukan konfirmasi pembayaran anda kepada kami.</strong></p>
+                <a href="/Home/Pembayaran" class="btn btn-primary btn-md pull-right">Konfirmasi pembayaran</a>
+
+            </div>
+        }
+    </fieldset>
+
+</div>
+
+<hr />
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="/Makalah"><span aria-hidden="true">&larr;</span> Makalah</a></li>
+    </ul>
+</nav>

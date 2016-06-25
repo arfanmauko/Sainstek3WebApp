@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Pesan Gagal";
+}
+
+<h2><strong>Pengiriman pesan gagal</strong></h2>
+<hr />
+
+@if (ViewBag.ErrorMessage != null && ViewBag.ErrorMessage.Length > 0)
+{
+    <div class="alert alert-danger">
+        <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        @ViewBag.ErrorMessage
+    </div>
+}

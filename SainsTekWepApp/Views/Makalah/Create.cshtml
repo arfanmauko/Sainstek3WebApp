@@ -1,0 +1,120 @@
+﻿@model SainsTekWepApp.Models.CreateMakalahViewModel
+
+@{
+    ViewBag.Title = "Tambah Makalah";
+}
+
+@section HeadScripts{
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        //tinymce.init({
+        //    selector: "#Title",
+        //    menubar: false,
+        //    toolbar: false,
+        //    statusbar: true,
+        //    plugins: "wordcount"
+        //});
+        //tinymce.init({
+        //    selector: "#Abstract",
+        //    menubar: false,
+        //    statusbar: true,
+        //    plugins: "wordcount"
+        //});
+    </script>
+}
+
+<h2>Tambah Makalah</h2>
+
+@if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+{
+    <div id="showAlert" style="display:none">
+        <div class="alert alert-danger">
+            <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            @Html.ValidationSummary(false, "")
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("Create", "Makalah", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>Jurnal</h4>*@
+        <hr />
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+        @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })*
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.CategoryId, Model.ListKategoriJurnal, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })*
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.Title, new { @class = "form-control", rows = "2" })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Abstract, htmlAttributes: new { @class = "control-label col-md-2" })*
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.Abstract, new { @class = "form-control", rows = "12" })
+                @Html.ValidationMessageFor(model => model.Abstract, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AbstractFileUpload, htmlAttributes: new { @class = "control-label col-md-2" })*
+            <div class="col-md-8">
+                <input type="file" class="filestyle" id="AbstractFileUpload" name="AbstractFileUpload" data-buttontext="&nbsp Pilih file" data-buttonbefore="true" data-placeholder="Tidak ada file.">
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullPaperFileUpload, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                <input type="file" class="filestyle" id="FullPaperFileUpload" name="FullPaperFileUpload" data-buttontext="&nbsp Pilih file" data-buttonbefore="true" data-placeholder="Tidak ada file.">
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "3", placeholder = "Informasi tambahan jika diperlukan." })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2 text-danger">
+                (*) harus diisi.
+            </div>
+            <div class="col-md-8">
+                <input type="submit" value="Tambah Makalah" class="btn btn-primary pull-right" />
+            </div>
+        </div>
+    </div>
+}
+<hr />
+
+<div class="alert alert-info">
+    <ul>
+        <li>Sampai tanggal 20 Agustus 2016 penulis wajib mengisi abstrak dan melampirkan file abstrak, sedangkan full paper bersifat optional.</li>
+        <li>Abstrak dan full paper yang di tambahkan masih dapat diubah sampai batas waktu yang telah ditentukan.</li>
+    </ul>
+</div>
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="/Makalah"><span aria-hidden="true">&larr;</span> Makalah</a></li>
+    </ul>
+</nav>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

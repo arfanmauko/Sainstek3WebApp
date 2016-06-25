@@ -1,0 +1,25 @@
+﻿#loading {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('/images/loading/balls.gif') 80% 80% no-repeat;
+    background-position: center;
+    /*background-color: transparent;*/
+    background-color: Window;
+}
+
+#loading-transparent {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('/images/loading/balls.gif') 80% 80% no-repeat;
+    background-position: center;
+    background-color: lightgray;
+    opacity:0.5;
+}

@@ -1,0 +1,36 @@
+﻿@model List<SainsTekWepApp.Entities.Pengumuman>
+@{
+    ViewBag.Title = "Pengumuman";
+}
+
+<div class="page-heading text-center">
+    <div class="container zoomIn animated">
+        @*<h1 class="page-title">@ViewBag.Title <span class="title-under"></span></h1>*@
+    </div>
+</div>
+
+<div style="padding:40px">
+    @if (Model.Count <= 0)
+    {
+        <div class="alert alert-danger" role="alert" style="text-align:center">
+            Belum ada pengumuman
+        </div>
+    }
+    else
+    {
+        for (int i = 0; i < Model.Count; i++)
+        {
+
+            <div class="cause323">
+                <h4 class="cause-title" style="text-align:left"><strong><a href="DetailPengumuman/@Model[i].Id">@Model[i].Title </a></strong></h4>
+                <p style="padding-left:20px"> @Model[i].DateCreated</p>
+                <hr />
+            </div>
+            <br />
+        }
+    }
+</div>
+
+@section FooterView{
+    @Html.Partial("Footer")
+}

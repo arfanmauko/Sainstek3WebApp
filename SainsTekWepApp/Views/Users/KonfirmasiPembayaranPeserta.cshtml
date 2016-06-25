@@ -1,0 +1,167 @@
+﻿@model SainsTekWepApp.Models.PaymentConfirmationViewModel
+
+@{
+    ViewBag.Title = "Konfirmasi pembayaran";
+}
+
+<h2>Konfirmasi Pembayaran Peserta</h2>
+
+<h4><strong>@ViewBag.UserFullName</strong></h4>
+
+@if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+{
+    <div id="showAlert" style="display:none">
+        <div class="alert alert-danger">
+            <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            @Html.ValidationSummary(false, "")
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("KonfirmasiPembayaranPeserta", "Users", null, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <br />
+    <br />
+    <br />
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Kategori Pembayaran</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PriceLevelCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.PriceLevelCategory, new SelectList(GlobalData.ListPriceCategory, "Id", "Name"), new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AttachmentFileUpload, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <img id="imageViewAttach" src="#" alt="attachment" style="display:block; max-width:100%; max-height : 300px; padding:5px; margin:10px" class="img-fluid img-thumbnail imageView" />
+                    <input class="filestyle" type="file" id="AttachmentFileUpload" name="AttachmentFileUpload" style="vertical-align:middle" data-buttontext="&nbsp Pilih file"
+                           data-placeholder="Tidak ada file.">
+                </div>
+                <div class="col-md-4 text-danger" style="vertical-align:central">
+                    Wajib dilampirkan untuk kategori harga mahasiswa pasca sarjana dan mahasiswa S1.
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    @Html.Partial("_PaymentConfirmationPartial", Model)
+}
+
+<div class="alert alert-danger">
+    <span class="glyphicon glyphicon-exclamation-sign"></span>
+    <span class="sr-only">Error:</span>
+    Bagi mahasiswa pasca sarjana dan mahasiswa S1 silahkan lampirkan foto kartu mahasiswa yang masih berlaku atau tanda pengenal lain yang menjelaskan bahwa anda adalah mahasiswa aktif.
+    Sedangkan bagi anda yang bukan mahasiswa anda tidak perlu untuk mengunggah foto identitas tambahan.
+</div>
+
+@*<div>
+        @Html.ActionLink("Profil", "UserProfile")
+    </div>*@
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="/Users/UserProfile"><span aria-hidden="true">&larr;</span> Profil</a></li>
+    </ul>
+</nav>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.number.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.imageView').hide();
+
+            $('#PriceLevelCategory').change(function () {
+                var selectedValue = this.value;
+                var target = $('#TransferAmount');
+
+                switch (selectedValue) {
+                    case "0":
+                        target[0].value = 250000;
+                        break;
+                    case "1":
+                        target[0].value = 200000;
+                        break;
+                    case "2":
+                        target[0].value = 100000;
+                        break;
+                    default:
+
+                }
+
+                $('#TransferAmount').change();
+                $('#TransferAmountValue').hide(250);
+                $('#TransferAmountValue').show(250);
+            });
+
+            //$('#PriceLevelCategory').change();
+
+            $('#TransferAmount').change(function () {
+                $('#TransferAmountValue').number($('#TransferAmount').val(), 2, ',', '.');
+                $('#TransferAmountValue').html('Rp ' + $('#TransferAmountValue').html());
+            });
+
+            $('#TransferAmount').change();
+
+
+            function readURL(input) {
+                $('#imageViewAttach').hide();
+
+                if (input.files && input.files[0]) {
+
+                    var fileLoaded = input.files[0];
+                    var fileType = fileLoaded.type;
+                    var sub = fileType.substring(0, 5);
+
+                    if (sub === "image") {
+                        $('#imageViewAttach').show(100);
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#imageViewAttach').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            }
+
+            $("#AttachmentFileUpload").change(function () {
+                readURL(this);
+            });
+
+            function readURL2(input) {
+                $('#imageViewSlip').hide();
+
+                if (input.files && input.files[0]) {
+
+                    var fileLoaded = input.files[0];
+                    var fileType = fileLoaded.type;
+                    var sub = fileType.substring(0, 5);
+
+                    if (sub === "image") {
+                        $('#imageViewSlip').show(100);
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#imageViewSlip').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            }
+
+            $("#TransferSlipFileUpload").change(function () {
+                readURL2(this);
+            });
+        });
+    </script>
+}

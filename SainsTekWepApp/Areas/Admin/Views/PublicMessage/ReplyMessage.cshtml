@@ -1,0 +1,72 @@
+﻿@model SainsTekWepApp.Areas.Admin.Models.ReplyPublicMessageViewModel
+@{
+    ViewBag.Title = "Reply";
+}
+
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: "#ReplyMessage",
+        menubar: false,
+        statusbar: true,
+        plugins: "wordcount"
+        //setup: function (ed) {
+        //    ed.onChange.add(function (ed, l) {
+        //        //console.debug('Editor contents was modified. Contents: ' + l.content);
+        //        //$('#error-info').hide();
+        //    });
+        //}
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-3 text-right"><strong>Message</strong></div>
+    <div class="col-md-9">@Model.MessageContent</div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-3 text-right"><strong>Reply to Email</strong></div>
+    <div class="col-md-9">@Model.ReplyToEmail</div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-3 text-right"><strong>Reply to Name</strong></div>
+    <div class="col-md-9">@Model.ReplyToName</div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-3 text-right"><strong>Subject</strong></div>
+    <div class="col-md-9">@Model.ReplySubject</div>
+</div>
+<hr />
+
+@using (Html.BeginForm("ReplyPublicMessage", "PublicMessage", FormMethod.Post, htmlAttributes: new { @id = "form-message" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ReplyToEmail)
+    @Html.HiddenFor(model => model.ReplyToName)
+    @Html.HiddenFor(model => model.ReplySubject)
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReplyMessage, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.ReplyMessage, new { @class = "form-control", rows = "10" })
+            </div>
+        </div>
+        @*<div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary pull-right">Send Reply</button>
+                </div>
+            </div>*@
+    </div>
+}
+
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>

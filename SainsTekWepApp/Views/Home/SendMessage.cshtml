@@ -1,0 +1,26 @@
+﻿@model SainsTekWepApp.Models.MailMessageViewModel
+@{
+    ViewBag.Title = "Kirim pesan";
+}
+
+<h2>SendMail</h2>
+
+@if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+{
+    <div id="showAlert" style="display:none">
+        <div class="alert alert-danger">
+            <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            @Html.ValidationSummary(false, "")
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("SendMessage", "Home", FormMethod.Post))
+{
+    @Html.EditorForModel();
+    
+    <button type="submit">Submit</button>
+}
+
+
+

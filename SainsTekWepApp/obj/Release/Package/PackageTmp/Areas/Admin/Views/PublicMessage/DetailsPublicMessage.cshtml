@@ -1,0 +1,91 @@
+﻿@model SainsTekWepApp.Areas.Admin.Models.DetailPublicMessageViewModel
+
+@{
+    ViewBag.Title = "DetailsPublicMessage";
+}
+
+<h2>DetailsPublicMessage</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SenderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SenderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SenderEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SenderEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageContent)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.MessageContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlreadyReply)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlreadyReply)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAdminRead)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAdminRead)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReplyMessage)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.ReplyMessage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateReply)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateReply)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReplyAdminId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReplyAdminId)
+        </dd>
+
+    </dl>
+</div>
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="/Admin/PublicMessage"><span aria-hidden="true">&larr;</span> Back to Message</a></li>
+    </ul>
+</nav>

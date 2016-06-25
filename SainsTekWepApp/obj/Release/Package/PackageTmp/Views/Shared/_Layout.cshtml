@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+@*<html class="no-js">*@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="Website Seminar Sainstek III Undana">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
+    <!-- Bootsrap -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font awesome -->
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <!-- Owl carousel -->
+    @*<link href="~/Content/owl.carousel.css" rel="stylesheet" />*@
+    <!-- Template main and custom Css -->
+    @*<link href="~/Content/template.css" rel="stylesheet" />
+        <link href="~/Content/my-style.css" rel="stylesheet" />
+        <link href="~/Content/my-animation.css" rel="stylesheet" />*@
+
+    @Styles.Render("~/Content/CustomSite")
+
+    <!-- jQuery -->
+    @*<script src="~/Scripts/jquery-2.2.3.min.js"></script>*@
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!-- Bootsrap javascript file -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- Respond -->
+    <script src="~/Scripts/respond.min.js"></script>
+
+    <!-- Modernizr -->
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <script>
+        $(window).load(function () {
+            //$("#animation").fadeOut("fast");
+            $("#loading").hide();
+        })
+    </script>
+    @*<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>*@
+    @RenderSection("HeadScripts", required: false)
+        </head>
+        <body>
+            <div id="loading">
+
+            </div>
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="navbar-top">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12 text-right">
+                                    <ul class="list-unstyled list-inline header-contact">
+                                        <li> <i class="fa fa-phone"></i> <a href="tel:">+62-82126117121</a> </li>
+                                        <li> <i class="fa fa-envelope"></i> <a href="mailto:panitia.sainstek@gmail.com">panitia.sainstek@gmail.com</a> </li>
+                                    </ul> <!-- /.header-contact  -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navbar-main">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="/home/index">SainsTek</a>
+
+                            </div>
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="/home/index">Home</a></li>
+                                    <li><a href="/home/pengumuman">Pengumuman</a></li>
+                                    <li class="has-child">
+                                        <a href="#">Informasi</a>
+                                        <ul class="submenu">
+                                            <li class="submenu-item"><a href="/home/Panduan">Panduan </a></li>
+                                            <li class="submenu-item"><a href="/home/Jadwal">Jadwal</a></li>
+                                            <li class="submenu-item"><a href="/home/Pembayaran">Pembayaran</a></li>
+                                            <li class="submenu-item"><a href="/home/contact">Kontak </a></li>
+                                        </ul>
+                                    </li>
+                @*<li><a href="#">Download</a></li>*@
+                                    <li><a href="/home/about">Tentang Kami</a></li>
+                                </ul>
+                @Html.Partial("_LoginPartial")
+                            </div> <!-- /#navbar -->
+                        </div> <!-- /.container -->
+                    </div> <!-- /.navbar-main -->
+                </nav>
+            </header> <!-- /. main-header -->
+
+            <div class="container" style="padding-bottom:20px">
+                @RenderBody()
+            </div>
+
+            <footer class="main-footer">
+
+                @RenderSection("FooterView", required: false)
+
+                <div class="footer-bottom">
+                    <div class="container text-right">
+                        SainsTek III @@copyrights @DateTime.Now.Year - by <a href="http://www.undana.ac.id" target="_blank">FST Undana</a>
+                    </div>
+                </div>
+
+            </footer> <!-- main-footer -->
+            <!--  Scripts
+            ================================================== -->
+            <!-- owl carouseljavascript file -->
+            <script src="~/Scripts/owl.carousel.min.js"></script>
+    <!-- Bootstrap-filestyle -->
+    <script src="~/Scripts/bootstrap-filestyle.min.js"></script>
+    <!-- Template main javascript -->
+    @*<script src="~/Scripts/main.js"></script>*@
+    <!-- Custom-js -->
+    @*<script src="~/Scripts/sainstek.js"></script>*@
+
+    @Scripts.Render("~/bundles/CustomJs")
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+        (function (b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l; b[l] || (b[l] =
+            function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
+            e = o.createElement(i); r = o.getElementsByTagName(i)[0];
+            e.src = '//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+        ga('create', 'UA-79367212-1'); ga('send', 'pageview');
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+
+    </body>
+</html>

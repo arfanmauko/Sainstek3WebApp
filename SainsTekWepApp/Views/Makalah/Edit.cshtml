@@ -1,0 +1,156 @@
+﻿@model SainsTekWepApp.Models.EditMakalahViewModel
+
+@{
+    ViewBag.Title = "Ubah Makalah";
+}
+
+@section HeadScripts{
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        //tinymce.init({
+        //    selector: "#Title",
+        //    menubar: false,
+        //    toolbar: false,
+        //    statusbar: true,
+        //    plugins: "wordcount"
+        //});
+        //tinymce.init({
+        //    selector: "#Abstract",
+        //    menubar: false,
+        //    statusbar: true,
+        //    plugins: "wordcount"
+        //});
+    </script>
+}
+
+<h2>Ubah Makalah</h2>
+
+@if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+{
+    <div class="alert alert-danger">
+        <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        @Html.ValidationSummary(false, "")
+    </div>
+}
+
+@using (Html.BeginForm("Edit", "Makalah", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>Jurnal</h4>*@
+        <hr />
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+        @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-3" })*
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.CategoryId, Model.ListKategoriJurnal, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-3" })*
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.Title, new { @class = "form-control", rows = "2" })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Abstract, htmlAttributes: new { @class = "control-label col-md-3" })*
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.Abstract, new { @class = "form-control", rows = "12" })
+                @Html.ValidationMessageFor(model => model.Abstract, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">File lama</label>
+            <div class="col-md-8">
+                <a href="/Makalah/DownloadAbstract?fileName=@Model.AbstractFileName" class="btn btn-success btn-md "><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Abstrak</a>
+                @if (Model.FullPaperFileName != null && Model.FullPaperFileName.Length > 0)
+                {
+                    <a href="/Makalah/DownloadFullPaper?fileName=@Model.FullPaperFileName" class="btn btn-success btn-md "><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Full paper</a>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AbstractFileUpload, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-8">
+                <input type="file" value="@Model.AbstractFileName" class="filestyle" id="AbstractFileUpload" name="AbstractFileUpload" data-buttontext="&nbsp Pilih file" data-buttonbefore="true" data-placeholder="Pilih file abstrak yang baru.">
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullPaperFileUpload, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-8">
+                <input type="file" value="@Model.FullPaperFileName" class="filestyle" id="FullPaperFileUpload" name="FullPaperFileUpload" data-buttontext="&nbsp Pilih file" data-buttonbefore="true" data-placeholder="Pilih file full paper yang baru.">
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "3", placeholder = "Informasi tambahan jika diperlukan." })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3 text-danger">
+                (*) harus diisi.
+            </div>
+            <div class="col-md-8">
+                <input type="submit" value="Ubah Makalah" class="btn btn-primary pull-right" />
+            </div>
+        </div>
+        @*<div class="form-group">
+                <div class="col-md-offset-3 col-md-8">
+                    <input type="submit" value="Ubah Makalah" class="btn btn-primary pull-right" />
+                </div>
+            </div>*@
+    </div>
+}
+<hr />
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="/Makalah/Details/@Model.Id"><span aria-hidden="true">&larr;</span> Info Makalah</a></li>
+    </ul>
+</nav>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script>
+            function getStats(id) {
+                var body = tinymce.get(id).getBody(), text = tinymce.trim(body.innerText || body.textContent);
+
+                return {
+                    chars: text.length,
+                    words: text.split(/[\w\u2019\'-]+/).length
+                };
+            }
+
+            function submitForm() {
+                // Check if the user has entered less than 1000 characters
+                if (getStats('Abstract').chars < 1000) {
+                    alert("You need to enter 1000 characters or more.");
+                    return;
+                }
+
+                // Check if the user has entered less than 100 words
+                if (getStats('Abstract').words < 100) {
+                    alert(getStats('Abstract').words);
+                    return;
+                }
+
+                // Submit the form
+                document.forms[0].submit();
+            }
+        </script>*@
+}

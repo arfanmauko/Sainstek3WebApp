@@ -1,0 +1,46 @@
+﻿@model SainsTekWepApp.Models.SendMessageViewModel
+@{
+    ViewBag.Title = "Kirim pesan";
+}
+
+<h2>Kirim pesan kepada kami.</h2>
+<hr />
+
+@if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+{
+    <div class="alert alert-danger">
+        <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        @Html.ValidationSummary(false, "")
+    </div>
+}
+
+@using (Html.BeginForm("SendMessage", "Message", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MessageTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-sm-10">
+            @Html.TextAreaFor(model => model.MessageTitle, new { @class = "form-control", rows = "1" })
+            @Html.ValidationMessageFor(model => model.MessageTitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MessageContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.MessageContent, new { @class = "form-control", rows = "10" })
+                @Html.ValidationMessageFor(model => model.MessageContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-1">
+                <button type="submit" class="btn btn-primary">Kirim</button>
+            </div>
+        </div>
+
+}
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="/Message"><span aria-hidden="true">&larr;</span> Pesan</a></li>
+    </ul>
+</nav>

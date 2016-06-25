@@ -1,0 +1,98 @@
+﻿@section HeadScripts{
+    <link href="~/Content/jquery.bootgrid.min.css" rel="stylesheet" />
+}
+
+<div class="table-responsive">
+    <table id="grid" class="table table-hover">
+        <thead>
+            <tr>
+                <th data-column-id="Id" data-identifier="true" data-type="numeric" data-order="asc" data-visible="false">Id</th>
+                <th data-column-id="SenderEmail">Sender Email</th>
+                <th data-column-id="SenderName">Sender Name</th>
+                <th data-column-id="MessageContent" data-formatter="MessageContent">Message Content</th>
+                <th data-column-id="AlreadyReply" data-formatter="AlreadyReply" data-align="center" data-sortable="false">Already Reply</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+    var getDetail = function (id) {
+        //prevent a tag default event;
+        event.preventDefault();
+        $('#sub-header').html('Detil ' + id);
+
+        //if ($("#grid-header-new").is(":visible")) {
+        //    $('#grid-header-new').hide();
+        //}
+
+        $.ajax({
+            type: 'GET',
+            url: '/Admin/PublicMessage/PublicDetailsMessage/' + id,
+            datatype: 'html',
+            success: function (data) {
+                $('#public-messages').html(data);
+            },
+            error: function (request, status, error) {
+                $('#public-messages').html('');
+                $.notify(request.statusText, { status: 'error', timeout: 10000, pos: 'top-right' });
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        var messageAction = "@ViewBag.PublicMessageAction";
+
+        var grid = $("#grid").bootgrid({
+            toggle: "bootgrid",
+            ajax: true,
+            rowCount: [10, 50, 100, 250, 500],
+            post: function () {
+                var sort = $("#grid").bootgrid("getSortDictionary");
+                var key = Object.keys(sort)[0];
+                var keyValue = sort[key];
+
+                return {
+                    current: $("#grid").bootgrid("getCurrentPage"),
+                    rowCount: $("#grid").bootgrid("getRowCount"),
+                    sortBy: key,
+                    sortDirection: keyValue,
+                    searchPhrase: $("#grid").bootgrid("getSearchPhrase"),
+                    id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                };
+            },
+            url: "/Admin/PublicMessage/" + messageAction,
+            formatters: {
+
+                "MessageContent": function (column, row) {
+
+                    return "<a href=\"#\" onclick=\"getDetail(" + row.Id + ")\">" + row.MessageContent + "</a>";
+                    //return "<div class=\"btn btn-link btn-md\" onclick=\"getDetail(" + row.Id + ")\">" + row.MessageContent + "</div>";
+
+
+                },
+                "AlreadyReply": function (column, row) {
+                    var stringHtml = "";
+
+                    if (row.AlreadyReply) {
+                        stringHtml = "<input class=\"check-box\" type=\"checkbox\" checked=\"checked\" disabled=\"disabled\">";
+                    }
+                    else {
+                        stringHtml = "<input class=\"check-box\" type=\"checkbox\" disabled=\"disabled\">";
+                    }
+
+                    return stringHtml;
+                }
+            },
+            //selection: true,
+            //multiSelect: true
+            rowSelect: true
+        });
+
+        //$("#grid-header-new").html("");
+
+        //$("#grid-header").appendTo("#grid-header-new");
+        ////$("#grid-header").hide();
+    });
+</script>
+

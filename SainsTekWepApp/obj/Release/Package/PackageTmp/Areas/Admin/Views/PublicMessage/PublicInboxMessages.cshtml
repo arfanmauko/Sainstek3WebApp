@@ -1,0 +1,66 @@
+﻿@model IEnumerable<SainsTekWepApp.Areas.Admin.Models.PublicMessageViewModel>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+@section HeadScripts{
+    <link href="~/Content/jquery.bootgrid.min.css" rel="stylesheet" />
+}
+
+<h4 class="text-info">&nbsp;&nbsp;@ViewBag.Action</h4>
+
+<button id="getSortDictionary">getSortDictionary</button>
+@*<table id="grid" class="table" data-toggle="bootgrid" data-ajax="true" data-url="/Home/PostMessage">*@
+<table id="grid" class="table">
+    <thead>
+        <tr>
+            <th data-column-id="Id" data-identifier="true" data-type="numeric" data-order="asc">Id</th>
+            <th data-column-id="SenderEmail">Sender Email</th>
+            <th data-column-id="SenderName">Sender Name</th>
+            <th data-column-id="MessageContent">Message Content</th>
+        </tr>
+    </thead>
+</table>
+
+@section scripts{
+    <script src="~/Scripts/jquery.bootgrid.min.js"></script>
+    @*<script src="~/Scripts/jquery.bootgrid.fa.min.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $("#getSortDictionary").on("click", function () {
+                var sort = $("#grid").bootgrid("getCurrentRows");
+
+                //debugger;
+                alert(sort);
+            });
+            //$("#grid").bootgrid();
+            $("#grid").bootgrid({
+                toggle: "bootgrid",
+                ajax: true,
+                rowCount: [10, 50, 100, 250, 500],
+                post: function () {
+                    /* To accumulate custom parameter with the request object */
+
+                    var sort = $("#grid").bootgrid("getSortDictionary");
+                    var key = Object.keys(sort)[0];
+                    var keyValue = sort[key];
+
+                    return {
+                        current: $("#grid").bootgrid("getCurrentPage"),
+                        rowCount: $("#grid").bootgrid("getRowCount"),
+                        sortBy: key,
+                        sortDirection: keyValue,
+                        searchPhrase: $("#grid").bootgrid("getSearchPhrase"),
+                        id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+                    };
+                },
+                url: "/Admin/PublicMessage/PostPublicInboxMessages",
+                selection: true,
+                multiSelect: true,
+                rowSelect: true
+           
+            });
+        });
+    </script>
+}

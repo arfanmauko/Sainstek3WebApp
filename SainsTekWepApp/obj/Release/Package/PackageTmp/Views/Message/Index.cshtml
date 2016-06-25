@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Pesan";
+}
+
+<hr />
+
+@if (!string.IsNullOrEmpty(ViewBag.InformationMessage))
+{
+    <div id="hideAlert">
+        <div class="alert alert-success" role="alert" style="text-align:center">
+            @ViewBag.InformationMessage
+        </div>
+    </div>
+}
+
+<!-- Begin page content -->
+<div class="container">
+    <!-- Gmail Header Starts here -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="pull-right">
+                <span>1-13 of 13</span>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default"> <i class='fa fa-angle-left'></i> </button>
+                    <button type="button" class="btn btn-default"> <i class='fa fa-angle-right'></i> </button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-gear"></i> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Comfortable</a></li>
+                        <li><a href="#">Cozy</a></li>
+                        <li><a href="#">Compact</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Configure Inbox</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">Themes</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Gmail Header Starts here -->
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+            <p>
+                <a class="btn btn-danger btn-block" href="Message/SendMessage">Kirim pesan</a>
+                @*<button class="btn btn-danger btn-block" type="button">
+
+                        Compose
+                    </button>*@
+            </p>
+            <hr />
+            <p>
+                <button id="Kotak-pesan" class="btn btn-primary btn-block" type="button">
+                    Kotak pesan <span class="badge">4</span>
+                </button>
+            </p><p>
+                <button id="Belum-dibaca" class="btn btn-warning btn-block" type="button">
+                    Belum dibaca
+                </button>
+            </p>
+            <p>
+                <button id="Sudah-dibaca" class="btn btn-info btn-block" type="button">
+                    Sudah dibaca
+                </button>
+            </p>
+            <p>
+                <button id="Pesan-terkirim" class="btn btn-success btn-block" type="button">
+                    Pesan terkirim
+                </button>
+            </p>
+        </div>
+        <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+
+
+            <h4><strong id="MessageTitle">Kotak pesan</strong></h4>
+            <hr />
+            <div id="Message" class="table-responsive">
+               
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#Kotak-pesan").click(function () {
+                $.ajax({
+                    url: "/Message/GetInboxMessages", success: function (result) {
+
+                        $('#MessageTitle').html('Kotak pesan');
+                        $("#Message").html(result);
+                    }
+                });
+            });
+
+            $("#Belum-dibaca").click(function () {
+                $.ajax({
+                    url: "/Message/GetUnReadMessages", success: function (result) {
+                        $('#MessageTitle').html('Pesan belum dibaca');
+                        $("#Message").html(result);
+
+                    }
+                });
+            });
+
+            $("#Sudah-dibaca").click(function () {
+                $.ajax({
+                    url: "/Message/GetReadMessages", success: function (result) {
+                        $('#MessageTitle').html('Pesan sudah dibaca');
+                        $("#Message").html(result);
+                    }
+                });
+            });
+
+            $("#Pesan-terkirim").click(function () {
+                $.ajax({
+                    url: "/Message/GetReadMessages", success: function (result) {
+                        $('#MessageTitle').html('Pesan terkirim');
+                        $("#Message").html(result);
+                    }
+                });
+            });
+
+            $("#Kotak-pesan").click();
+        });
+    </script>
+}

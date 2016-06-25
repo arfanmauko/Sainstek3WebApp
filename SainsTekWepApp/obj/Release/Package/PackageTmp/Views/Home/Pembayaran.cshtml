@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Pembayaran";
+}
+
+<div class="page-heading text-center">
+    <div class="container zoomIn animated">
+        @*<h1 class="page-title">@ViewBag.Title <span class="title-under"></span></h1>*@
+    </div>
+</div>
+
+<fieldset>
+    <legend class="text-info"><strong>Informasi Pembayaran</strong></legend>
+    <p>
+        Pembayaran dapat anda lakukan melalui transfer ke rekening kami di <strong>Bank BRI</strong>.
+    </p>
+    <br />
+    <img src="~/images/logo/logo-bank-bri.png" alt="" width="100" height="60" style="float:left; margin-right:20px" />
+    <p>Atas nama : <strong>Beby H. A. Manafe</strong></p>
+    <h4>No rekening : <strong>1696-01-000979-53-6</strong></h4>
+    <br />
+</fieldset>
+
+<fieldset>
+    <legend class="text-info"><strong>Jumlah Transfer</strong></legend>
+    <div class="text-justify">
+        <p>Besaran jumlah transfer adalah sebagai berikut :</p>
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            Untuk Penulis :
+        </dt>
+        <dd>
+            <div class="row">
+                <div class="col-md-3">
+                    Dosen/Peneliti/Profesional
+                </div>
+                <div class="col-md-4">
+                    <strong>Rp 350.000,-</strong> per makalah.
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Mahasiswa Pasca Sarjana
+                </div>
+                <div class="col-md-4">
+                    <strong>Rp 300.000,-</strong> per makalah.
+                </div>
+            </div>
+        </dd>
+        <dt>
+            Untuk Peserta :
+        </dt>
+        <dd>
+            <div class="row">
+                <div class="col-md-3">
+                    Dosen/Peneliti/Profesional
+                </div>
+                <div class="col-md-4">
+                    <strong>Rp 250.000,-</strong> per orang.
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Mahasiswa Pasca Sarjana
+                </div>
+                <div class="col-md-4">
+                    <strong>Rp 200.000,-</strong> per orang.
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Mahasiswa S1
+                </div>
+                <div class="col-md-4">
+                    <strong>Rp 100.000,-</strong> per orang.
+                </div>
+            </div>
+        </dd>
+    </dl>
+    <div class="text-justify">
+        <p>Bagi penulis yang mendaftarkan lebih dari 1 (satu) makalah akan dikenakan biaya tambahan sebesar <strong>Rp 250.000,-</strong> per makalah.</p>
+    </div>
+    <br />
+</fieldset>
+
+<fieldset>
+    <legend class="text-info"><strong>Konfirmasi Pembayaran</strong></legend>
+    <div class="text-justify">
+        Setelah melakukan transfer anda harus melakukan konfirmasi kepada kami melalui menu <strong>Konfirmasi Pembayaran</strong> yang ada pada menu <strong>Profil</strong> untuk peserta. Sedangkan untuk makalah dapat anda temui pada submenu <strong>Info</strong> pada menu <strong>Makalah.</strong>
+        Konfirmasi pembayaran akan dianggap sah apabila anda melampirkan bukti transfer dalam bentuk file gambar (hasil scan).
+    </div>
+    <br />
+    <br />
+</fieldset>
+
+<fieldset>
+    <legend class="text-info"><strong>Hasil Konfirmasi Pembayaran</strong></legend>
+    <div class="text-justify">
+        Hasil konfirmasi pembayaran dari kami dapat anda lihat pada menu <strong>Profil</strong> untuk peserta dan pada submenu <strong>Info</strong> pada menu <strong>Makalah</strong> untuk melihat hasil konfirmasi makalah.
+    </div>
+</fieldset>
+
+<br />
+
+<div class="alert alert-info text-center">
+    Untuk informasi lebih jelas anda dapat menghubungi panitia melalui <i class="fa fa-envelope"></i> <a href="/Home/Contact">pesan</a> atau telepon <i class="fa fa-phone"></i> <a href="tel:">+62-82126117121</a>.
+</div>
+
+@*@section FooterView{
+        @Html.Partial("Footer")
+    }*@

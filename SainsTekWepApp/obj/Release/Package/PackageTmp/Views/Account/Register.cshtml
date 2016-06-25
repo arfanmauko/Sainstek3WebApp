@@ -1,0 +1,166 @@
+﻿@model SainsTekWepApp.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Pendaftaran";
+}
+
+@section HeadScripts{
+    <script>
+        tinymce.init({
+            selector: "#textarea",
+            plugins: "image, link, media, table, preview",
+            file_browser_callback: function (field_name, url, type, win) {
+                win.document.getElementById(field_name).value = 'my browser value';
+            }
+        });
+    </script>
+
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+{
+    <div id="showAlert" style="display:none">
+        <div class="alert alert-danger">
+            <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            @Html.ValidationSummary(false, "")
+        </div>
+    </div>
+}
+
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @*<h4>Daftar akun baru.</h4>*@
+
+    <hr />
+    @*@Html.ValidationSummary("", new { @class = "text text-danger" })*@
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-3">
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MiddleName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-3">
+            @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.MiddleName, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-3">
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-4">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-4">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
+        <div class="col-md-2">
+            @Html.EnumDropDownListFor(m => m.Sex, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Sex, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.FrontTitle, new { @class = "col-md-2 control-label" })
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.FrontTitle, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FrontTitle, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.BehindTitle, new { @class = "col-md-2 control-label" })
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.BehindTitle, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.BehindTitle, "", new { @class = "text text-danger" })
+        </div>
+        <div class="col-md-7">
+            <label class="control-label"> Gunakan tanda koma (",") apabila terdapat lebih dari satu gelar. Contoh : S.T., M.Eng.</label>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-3">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MailAddress, new { @class = "col-md-2 control-label" })*
+        <div class="col-md-5">
+            @Html.TextAreaFor(m => m.MailAddress, new { @class = "form-control", @rows = "3" })
+            @Html.ValidationMessageFor(m => m.MailAddress, "", new { @class = "text text-danger" })
+        </div>
+        <div class="col-md-5">
+            <label class="control-label"> Alamat tujuan bersurat kami kepada anda.</label>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-6">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = "3" })
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.DropDownListFor(m => m.UserCategory, Model.ListKategoriUser, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserCategory, "", new { @class = "text text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div>
+                <ul>
+                    <li>Penulis : bila anda ingin mendaftarkan makalah/tulisan anda pada seminar SainsTek III. Bidang makalah apa saja yang kami terima dapat dilihat pada bagian bawah halaman web ini.</li>
+                    <li>Peserta : bila anda ingin mendaftarkan diri anda hanya sebagai peserta seminar SainsTek III.</li>
+                </ul>
+                <strong>
+                    Fasilitas apa saja yang akan diperoleh dapat dilihat pada bagian bawah halaman web ini. Informasi jumlah kontribusi pembayaran dapat dilihat disini. <a href="/Home/Pembayaran" class="btn btn-link btn-md"><i class="fa fa-arrow-right"></i> Informasi pembayaran</a>
+                </strong>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <p><h5 class="text-danger">(*) harus diisi.</h5></p>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="  Daftar  " />
+        </div>
+    </div>
+}
+@section FooterView{
+    @Html.Partial("Footer")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

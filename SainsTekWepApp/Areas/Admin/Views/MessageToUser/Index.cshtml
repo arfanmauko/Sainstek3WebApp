@@ -1,0 +1,67 @@
+﻿@model IEnumerable<SainsTekWepApp.Areas.Admin.Models.MessageToUserViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-sm-8">
+        <h1 class="page-header"> <i class="fa fa-envelope"></i> Message to User</h1>
+        
+    </div>
+    <div class="col-sm-4">
+        <a href="#" class="page-header btn btn-primary pull-right"><i class="fa fa-plus-circle fa-1x"></i> Create New</a>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<hr />
+@if (!string.IsNullOrEmpty(ViewBag.InformationMessage))
+{
+    <div id="hideAlert">
+        <div class="alert alert-success" role="alert" style="text-align:center">
+            @ViewBag.InformationMessage
+        </div>
+    </div>
+}
+
+
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MessageTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MessageContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MessageTitle)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.MessageContent)*@
+                    @Html.ActionLink(item.MessageContent, "DetailsPublicMessage", new { id = item.Id })
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.ActionLink("Reply", "ReplyPublicMessage", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

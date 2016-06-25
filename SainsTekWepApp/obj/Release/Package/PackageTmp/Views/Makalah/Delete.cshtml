@@ -1,0 +1,71 @@
+﻿@model SainsTekWepApp.Models.DeleteMakalahViewModel
+
+@{
+    ViewBag.Title = "Hapus makalah";
+}
+
+<h2>Anda yakin mau menghapus makalah ini?</h2>
+<br />
+<div class="alert alert-danger">
+    <p>Proses ini akan manghapus data anda secara permanen dan tidak dapat dikembalikan lagi.</p>
+</div>
+
+<hr />
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Title)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Title)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.CategoryName)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CategoryName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Abstract)
+    </dt>
+
+    <dd>
+        @Html.Raw(Model.Abstract)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.PaperPaymentStatus)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.PaperPaymentConfirmMessage)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.DateSubmitted)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.DateSubmitted)
+    </dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        @*@Html.ActionLink("Daftar makalah", "Index", null, htmlAttributes: new { @class = "btn btn-success" })*@
+        <input type="submit" value="Hapus" class="btn btn-danger pull-right" />
+    </div>
+}
+
+<nav>
+    <ul class="pager">
+        <li class="previous"><a href="/Makalah/Details/@Model.Id"><span aria-hidden="true">&larr;</span> Info Makalah</a></li>
+    </ul>
+</nav>
+

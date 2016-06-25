@@ -1,0 +1,88 @@
+﻿@model IEnumerable<SainsTekWepApp.Models.ListMakalahViewModel>
+
+@{
+    ViewBag.Title = "Makalah";
+}
+
+<h2>@ViewBag.UserFullName</h2>
+<br />
+<p>
+    <a href="/Makalah/Create" class="btn btn-primary"><i class="fa fa-fw fa-pencil"></i>  Tambah Makalah </a>
+</p>
+
+@if (!string.IsNullOrEmpty(ViewBag.InformationMessage))
+{
+    <div id="hideAlert">
+        <div class="alert alert-success" role="alert" style="text-align:center">
+            @ViewBag.InformationMessage
+        </div>
+    </div>
+}
+
+@if (Model.Count() == 0)
+{
+    <br />
+    <div id="showAlert" style="display:none">
+        <div class="alert alert-danger" role="alert" style="text-align:center">
+            Belum ada makalah
+        </div>
+    </div>
+    <br />
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    File
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateSubmitted)
+                </th>
+                 <th>
+                    @Html.DisplayNameFor(model => model.DateModified)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @*<a href="/Makalah/details/@item.Id" class="btn btn-link btn-md text-justify">@item.Title <i class="fa fa-arrow-circle-o-right"></i></a>*@
+                       @Html.Raw(item.Title)
+                    </td>
+                    <td class="text-center">
+                        <a href="/Makalah/DownloadAbstract?fileName=@item.AbstractFileName" class="btn btn-link btn-md"><i class="fa fa-download">  Abstrak</i></a>
+                        @if (item.FullPaperFileName != null && item.FullPaperFileName.Length > 0)
+                        {
+                            <a href="/Makalah/DownloadFullPaper?fileName=@item.FullPaperFileName" class="btn btn-link btn-md"><i class="fa fa-download">  Makalah</i></a>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.DateSubmitted)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.DateModified)
+                    </td>
+                    <td class="text-center">
+                        @*@Html.ActionLink("Info", "Details", "Makalah", new { id = item.Id }, htmlAttributes: new { @class="btn btn-info btn-sm" })*@
+                        <a class="btn btn-primary btn-md" href="/Makalah/Details/@item.Id">Info <i class="fa fa-info-circle"></i></a>
+
+                        @*@Html.ActionLink("Edit", "Edit", "Makalah", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning btn-sm" })
+                        @Html.ActionLink("Delete", "Delete", "Makalah", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger btn-sm" })*@
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+
+@section FooterView{
+    @Html.Partial("Footer")
+}

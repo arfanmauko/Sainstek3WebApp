@@ -1,0 +1,65 @@
+﻿@model SainsTekWepApp.Models.MailMessageViewModel
+
+<style>
+    .modal {
+        text-align: center;
+        padding: 0 !important;
+    }
+
+        .modal:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -4px;
+        }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+    }
+</style>
+
+
+<form action="/Home/SendMessage" method="post" id="FormMessage">
+    @*class="contact-form ajax-form">*@
+    <div class="row">
+        <div class="form-group col-md-6">
+            <input type="text" name="name" class="form-control" placeholder="Nama*" required>
+        </div>
+        <div class="form-group col-md-6">
+            <input type="email" name="email" class="form-control" placeholder="E-mail*" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <textarea name="message" rows="5" class="form-control" placeholder="Pesan*" required></textarea>
+    </div>
+    <div class="form-group alerts">
+        <div class="alert alert-success" role="alert">
+        </div>
+        <div class="alert alert-danger" role="alert">
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary pull-right">Kirim pesan</button>
+    </div>
+    <div class="clearfix"></div>
+</form>
+
+<script>
+    $("#FormMessage").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                $.notify("Pesan telah terkirim.", { status: "success", pos: 'top-right' });
+            },
+            error: function (request, status, error) {
+                $.notify(request.statusText, { status: "error", timeout : 10000, pos: 'top-right' });
+            }
+        });
+        return false;
+    });
+</script>

@@ -1,0 +1,163 @@
+﻿@model SainsTekWepApp.Models.UserProfileViewModel
+
+@{
+    ViewBag.Title = "Profil";
+}
+
+<h2>@ViewBag.UserFullName</h2>
+
+<p>
+    <h4><strong>@Model.UserCategory</strong></h4>
+    <br />
+</p>
+
+@if (!string.IsNullOrEmpty(ViewBag.InformationMessage))
+{
+    <div id="hideAlert">
+        <div class="alert alert-success" role="alert" style="text-align:center">
+            @ViewBag.InformationMessage
+        </div>
+    </div>
+}
+
+<fieldset>
+    <legend class="h4">Profil</legend>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FrontTitle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FrontTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BehindTitle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BehindTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MailAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MailAddress)
+        </dd>
+    </dl>
+    <div class="row">
+        <div class="col-md3 col-md-offset-9">
+            <p>
+                <a href="/Manage/ChangePassword" class="btn btn-warning">Ganti Password</a>
+                <a href="/Users/EditProfile" class="btn btn-warning">Ubah Profil</a>
+            </p>
+        </div>
+    </div>
+
+</fieldset>
+
+@if (Model.UserCategory == "Peserta")
+{
+    <fieldset>
+        <legend class="h4">Status Peserta</legend>
+        @if (Model.ParticipantPaymentStatus == SainsTekWepApp.Enums.EParticipantPaymentStatus.Baru)
+        {
+            <div id="showAlert" style="display:none">
+                <div class="alert alert-danger" role="alert" style="text-align:center">
+                    @Model.ParticipantPaymentConfirmMessage
+                </div>
+            </div>
+            <div>
+                <p>
+                    <strong>Informasi pembayaran dapat dilihat disini. <a href="/Home/Pembayaran" class="btn btn-info btn-md"><i class="fa fa-credit-card"></i> Informasi pembayaran</a></strong>
+                </p>
+                <p>  <strong>Apabila anda telah melakukan pembayaran, maka silahkan melakukan konfirmasi pembayaran anda kepada kami.</strong></p>
+                <a href="/Users/KonfirmasiPembayaranPeserta" class="btn btn-primary btn-md pull-right">Konfirmasi pembayaran</a>
+
+            </div>
+        }
+        @if (Model.ParticipantPaymentStatus == SainsTekWepApp.Enums.EParticipantPaymentStatus.KonfirmasiPembayaran)
+        {
+            <div id="showAlert" style="display:none">
+                <div class="alert alert-warning" role="alert" style="text-align:center">
+                    @Model.ParticipantPaymentConfirmMessage
+                </div>
+            </div>
+        }
+        @if (Model.ParticipantPaymentStatus == SainsTekWepApp.Enums.EParticipantPaymentStatus.Ditolak)
+        {
+            <div id="showAlert" style="display:none">
+                <div class="alert alert-danger" role="alert" style="text-align:center">
+                    @Model.ParticipantPaymentConfirmMessage
+                </div>
+            </div>
+            <div>
+                <p>
+                    <strong>Informasi pembayaran dapat dilihat disini. <a href="/Home/Pembayaran" class="btn btn-info btn-md"><i class="fa fa-credit-card"></i> Informasi pembayaran</a></strong>
+                </p>
+                <p>  <strong>Apabila anda telah melakukan pembayaran, maka silahkan melakukan konfirmasi pembayaran anda kepada kami.</strong></p>
+                <a href="/Users/KonfirmasiPembayaranPeserta" class="btn btn-primary btn-md pull-right">Konfirmasi pembayaran</a>
+
+            </div>
+        }
+        @if (Model.ParticipantPaymentStatus == SainsTekWepApp.Enums.EParticipantPaymentStatus.Diterima)
+        {
+            <div id="showAlert" style="display:none">
+                <div class="alert alert-success" role="alert" style="text-align:center">
+                    @Model.ParticipantPaymentConfirmMessage
+                </div>
+            </div>
+        }
+    </fieldset>
+}

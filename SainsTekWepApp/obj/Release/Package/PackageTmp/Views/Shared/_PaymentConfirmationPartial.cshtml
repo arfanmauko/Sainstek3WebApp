@@ -1,0 +1,47 @@
+﻿@model SainsTekWepApp.Models.PaymentConfirmationViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Info Pembayaran</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            @Html.LabelFor(model => model.BankSenderName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.BankSenderName, Model.ListBankNames, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TransferAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @*@Html.EditorFor(model => model.TransferAmount, new { htmlAttributes = new { @class = "form-control text-right" } })*@
+               <input class="form-control text-right text-box single-line" data-val="true" data-val-number="Isikan Jumlah transfer (Rp) hanya dengan angka." data-val-range="Jumlah transfer (Rp) antara Rp 100.000,00 dan Rp 350.000,00 sesuai jenis dan kategori harga yang dipilih." data-val-range-max="350000" data-val-range-min="100000" data-val-required="Jumlah transfer (Rp) harus diisi." id="TransferAmount" name="TransferAmount" type="text" value="@Model.TransferAmount" />
+                @Html.ValidationMessageFor(model => model.TransferAmount, "", new { @class = "text-danger" })
+            </div>
+             <label name="TransferAmountValue" id="TransferAmountValue" class="control-label col-md-2" for="TransferAmount"></label>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TransferSlipFileUpload, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                <img id="imageViewSlip" src="#" alt="struk pembayaran" style="display:block; max-width:100%; max-height : 300px; padding:5px; margin:10px" class="img-fluid img-thumbnail imageView" />
+                <input class="filestyle" type="file" id="TransferSlipFileUpload" name="TransferSlipFileUpload" style="vertical-align:middle" data-buttontext="&nbsp Pilih file" data-placeholder="Tidak ada file.">
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                 @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "5" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Kirim" class="btn btn-primary pull-right" />
+    </div>
+</div>

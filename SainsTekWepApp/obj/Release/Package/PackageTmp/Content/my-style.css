@@ -1,0 +1,134 @@
+﻿.btn {
+    border-radius: 0;
+}
+
+.img-thumbnail {
+    max-width: none;
+}
+
+.table th {
+    text-align: center;
+}
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+}
+
+.dl-horizontal > dt,
+.dl-horizontal > dd {
+    padding: 3px;
+}
+
+/* Hide view In big screen device style*/
+@media screen and (max-width: 1200px) {
+    .big-screen-only {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .page-heading {
+        display: none;
+    }
+}
+
+fieldset legend {
+    font-size: 1.0em;
+}
+
+/*detail-makalah*/
+fieldset.detail-makalah .row {
+    margin-left: 3%;
+    text-align: left;
+    margin-bottom: 0.7em;
+    font-size: 1.1em;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+    fieldset.detail-makalah .row .cause-details {
+        margin-top:1%;
+        margin-left: 1%;
+        text-align: justify;
+        margin-bottom: 0.1em;
+        font-size: 1em;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+
+/* Jadwal kegiatan style*/
+dl.dl-horizontal.jadwal dt {
+    margin-left: 3%;
+    text-align: left;
+    margin-bottom: 0.1em;
+    /*width: 550px;*/
+    width: 48%;
+    padding-right: 1em;
+}
+
+dl.dl-horizontal.jadwal dd {
+    margin-left: 0;
+    margin-bottom: 0.2em;
+}
+
+    dl.dl-horizontal.jadwal dd strong {
+        float: right;
+    }
+
+@media screen and (max-width: 1200px) {
+    dl.dl-horizontal.jadwal dt {
+        width: 77%;
+    }
+
+    dl.dl-horizontal.jadwal dd strong {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 730px) {
+    dl.dl-horizontal.jadwal dt {
+        width: 100%;
+    }
+}
+
+/* Susunan Panitia style*/
+dl.dl-horizontal.panitia dt {
+    margin-left: 3%;
+    text-align: left;
+    margin-bottom: 0.1em;
+    /*width: 550px;*/
+    width: 30%;
+    padding-right: 1em;
+}
+
+dl.dl-horizontal.panitia dd {
+    margin-left: 0;
+    margin-bottom: 0.2em;
+}
+
+    dl.dl-horizontal.panitia dd strong {
+        float: right;
+    }
+
+@media screen and (max-width: 1200px) {
+    dl.dl-horizontal.panitia dt {
+        width: 60%;
+    }
+
+    dl.dl-horizontal.panitia dd strong {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    dl.dl-horizontal.panitia dt {
+        width: 100%;
+    }
+}
